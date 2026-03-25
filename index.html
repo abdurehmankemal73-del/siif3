@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIIF – Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-body">
+  <div class="login-container">
+    <div class="login-logo">
+      <div class="logo-icon">🎓</div>
+      <h1>SIIF</h1>
+      <p>School Management System</p>
+    </div>
+    <form id="loginForm" class="login-form" novalidate>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" autocomplete="email" />
+        <span class="field-error" id="emailError"></span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+        <span class="field-error" id="passwordError"></span>
+      </div>
+      <span class="field-error" id="loginError"></span>
+      <button type="submit" class="btn btn-primary btn-full">Login</button>
+      <p class="login-hint">Demo: <strong>admin@siif.edu</strong> / <strong>admin123</strong></p>
+    </form>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

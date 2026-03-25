@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIIF – Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="app-body">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">🎓</div>
+      <span>SIIF</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-page="home">🏠 Dashboard</a>
+      <a href="#" class="nav-link" data-page="students">👩‍🎓 Students</a>
+      <a href="#" class="nav-link" data-page="teachers">👨‍🏫 Teachers</a>
+      <a href="#" class="nav-link" data-page="courses">📚 Courses</a>
+      <a href="#" class="nav-link" data-page="contact">✉️ Contact</a>
+    </nav>
+    <button class="btn btn-logout" id="logoutBtn">🚪 Logout</button>
+  </aside>
+
+  <!-- Mobile top bar -->
+  <header class="topbar">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+    <span class="topbar-title">SIIF</span>
+    <button class="btn btn-logout-sm" id="logoutBtnMobile">Logout</button>
+  </header>
+
+  <!-- Overlay for mobile -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main content -->
+  <main class="main-content" id="mainContent">
+
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page active">
+      <div class="page-header">
+        <h2>Welcome to SIIF School Management System</h2>
+        <p>Manage your school efficiently from one place.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="stat-icon">👩‍🎓</div>
+          <div class="stat-info">
+            <span class="stat-number" id="totalStudents">0</span>
+            <span class="stat-label">Total Students</span>
+          </div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon">👨‍🏫</div>
+          <div class="stat-info">
+            <span class="stat-number" id="totalTeachers">0</span>
+            <span class="stat-label">Total Teachers</span>
+          </div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-icon">📚</div>
+          <div class="stat-info">
+            <span class="stat-number" id="totalCourses">0</span>
+            <span class="stat-label">Total Courses</span>
+          </div>
+        </div>
+      </div>
+      <div class="quick-info card">
+        <h3>Quick Overview</h3>
+        <p>Use the sidebar to navigate between sections. You can add, edit, and delete students, view teachers and courses, or send a message via the contact form.</p>
+      </div>
+    </section>
+
+    <!-- STUDENTS PAGE -->
+    <section id="page-students" class="page">
+      <div class="page-header">
+        <h2>Students</h2>
+        <button class="btn btn-primary" id="addStudentBtn">+ Add Student</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="studentSearch" placeholder="🔍 Search by name, ID or class..." />
+      </div>
+
+      <!-- Student Form -->
+      <div class="modal-overlay" id="studentModal">
+        <div class="modal">
+          <h3 id="studentModalTitle">Add Student</h3>
+          <form id="studentForm" novalidate>
+            <input type="hidden" id="studentId" />
+            <div class="form-group">
+              <label for="studentName">Full Name</label>
+              <input type="text" id="studentName" placeholder="e.g. Jane Doe" />
+              <span class="field-error" id="studentNameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="studentCode">Student ID</label>
+              <input type="text" id="studentCode" placeholder="e.g. S-001" />
+              <span class="field-error" id="studentCodeError"></span>
+            </div>
+            <div class="form-group">
+              <label for="studentClass">Class</label>
+              <input type="text" id="studentClass" placeholder="e.g. Grade 10-A" />
+              <span class="field-error" id="studentClassError"></span>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" id="cancelStudentBtn">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table" id="studentsTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Student ID</th>
+              <th>Class</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentsBody"></tbody>
+        </table>
+        <p class="empty-state" id="studentsEmpty">No students found. Add one to get started.</p>
+      </div>
+    </section>
+
+    <!-- TEACHERS PAGE -->
+    <section id="page-teachers" class="page">
+      <div class="page-header">
+        <h2>Teachers</h2>
+      </div>
+      <div class="cards-grid" id="teachersGrid"></div>
+      <p class="empty-state" id="teachersEmpty" style="display:none">No teachers listed.</p>
+    </section>
+
+    <!-- COURSES PAGE -->
+    <section id="page-courses" class="page">
+      <div class="page-header">
+        <h2>Courses</h2>
+      </div>
+      <div class="cards-grid" id="coursesGrid"></div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section id="page-contact" class="page">
+      <div class="page-header">
+        <h2>Contact Us</h2>
+        <p>Send us a message and we'll get back to you.</p>
+      </div>
+      <div class="contact-wrapper">
+        <form id="contactForm" class="contact-form card" novalidate>
+          <div class="form-group">
+            <label for="contactName">Your Name</label>
+            <input type="text" id="contactName" placeholder="Full name" />
+            <span class="field-error" id="contactNameError"></span>
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" placeholder="you@example.com" />
+            <span class="field-error" id="contactEmailError"></span>
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="5" placeholder="Write your message here..."></textarea>
+            <span class="field-error" id="contactMessageError"></span>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p class="success-msg" id="contactSuccess"></p>
+        </form>
+        <div class="contact-info card">
+          <h3>School Info</h3>
+          <p>📍 123 Education Ave, Knowledge City</p>
+          <p>📞 +1 (555) 000-1234</p>
+          <p>✉️ info@siif.edu</p>
+          <p>🕐 Mon–Fri: 8:00 AM – 4:00 PM</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
